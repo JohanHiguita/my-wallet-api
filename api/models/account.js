@@ -7,7 +7,11 @@ const accountSchema = mongoose.Schema(
       type: String,
       required: [true, "No name provided"],
       trim: true
-    }
+    },
+    type: {
+        type: String,
+        enum: ['efectivo', 'Ahorros', "Credito"],
+    },
   },
 
   { timestamps: {} }
