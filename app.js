@@ -13,6 +13,8 @@ const mDB = mongoose.connection;
 mDB.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 const account_routes = require("./api/routes/accounts");
+const transaction_routes = require("./api/routes/transactions");
+const user_routes = require("./api/routes/users");
 /* const payments = require("./api/routes/projects")
 const user_routes = require("./api/routes/users")
 const payment_routes = require("./api/routes/payments")
@@ -39,6 +41,8 @@ app.use(bodyParser.json())
 }) */
 
 app.use("/accounts", account_routes)
+app.use("/transactions", transaction_routes)
+app.use("/users", user_routes)
 //app.use("/users", user_routes)
 //app.use("/payments", payment_routes)
 
