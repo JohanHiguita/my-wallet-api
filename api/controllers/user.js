@@ -3,7 +3,7 @@ const User = require("../models/user");
 
 async function index(req, res, next) {
     try {
-        const users = await User.find();
+        const users = await User.find("-__v");
         console.log(users);
         res.status(200).json(users);
     } catch (error) {

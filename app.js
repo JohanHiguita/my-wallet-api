@@ -16,10 +16,6 @@ const account_routes = require("./api/routes/accounts");
 const transaction_routes = require("./api/routes/transactions");
 const user_routes = require("./api/routes/users");
 const category_routes = require("./api/routes/categories");
-/* const payments = require("./api/routes/projects")
-const user_routes = require("./api/routes/users")
-const payment_routes = require("./api/routes/payments")
-const test_routes = require("./api/routes/test") */
 
 app.use(morgan("dev"))
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -45,8 +41,6 @@ app.use("/accounts", account_routes)
 app.use("/transactions", transaction_routes)
 app.use("/users", user_routes)
 app.use("/categories", category_routes)
-//app.use("/users", user_routes)
-//app.use("/payments", payment_routes)
 
 //if no one of the before routes match:
 app.use((req, res, next) => {

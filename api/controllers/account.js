@@ -4,7 +4,7 @@ const Account = require("../models/account");
 
 async function index(req, res, next) {
     try {
-        const accounts = await Account.find();
+        const accounts = await Account.find("-__v");
         console.log(accounts);
         //_accounts = helper.add_extra_props(accounts);
         res.status(200).json(accounts);
