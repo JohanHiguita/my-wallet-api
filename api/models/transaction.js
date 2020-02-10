@@ -18,6 +18,7 @@ const transactionSchema = mongoose.Schema(
     type: {
         type: String,
         enum: ['income', 'expense'],
+        required: [true, "No type provided"]
     },
     user: {
         type: mongoose.Types.ObjectId,

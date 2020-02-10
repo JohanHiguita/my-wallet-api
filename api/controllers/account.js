@@ -1,10 +1,12 @@
 const mongoose = require("mongoose");
+const helper = require ("../helpers/account");
 const Account = require("../models/account");
 
 async function index(req, res, next) {
     try {
         const accounts = await Account.find();
         console.log(accounts);
+        //_accounts = helper.add_extra_props(accounts);
         res.status(200).json(accounts);
     } catch (error) {
         console.log(error);
