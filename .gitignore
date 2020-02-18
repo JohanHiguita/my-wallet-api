@@ -1,5 +1,5 @@
-#test script
-devtesting.js
+#Backlog
+.backlog.log
 
 #data
 .nodemon.json
