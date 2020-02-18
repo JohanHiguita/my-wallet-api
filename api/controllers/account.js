@@ -4,9 +4,9 @@ const Account = require("../models/account");
 
 async function index(req, res, next) {
     try {
-        const accounts = await Account.find("-__v");
+        let accounts = await Account.find().select("-__v");
+        accounts = await helper.add_extra_props(accounts); //add incomes, expenses, balance
         console.log(accounts);
-        //_accounts = helper.add_extra_props(accounts);
         res.status(200).json(accounts);
     } catch (error) {
         console.log(error);
