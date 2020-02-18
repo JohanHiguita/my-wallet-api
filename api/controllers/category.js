@@ -3,7 +3,7 @@ const Category = require("../models/category");
 
 async function index(req, res, next) {
     try {
-        const categories = await Category.find("-__v");
+        const categories = await Category.find().select("-__v");
         console.log(categories);
         res.status(200).json(categories);
     } catch (error) {

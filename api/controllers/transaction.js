@@ -3,7 +3,7 @@ const Transaction = require("../models/transaction");
 
 async function index(req, res, next) {
     try {
-        const transactions = await Transaction.find("-__v");
+        const transactions = await Transaction.find().select("-__v");
         console.log(transactions);
         res.status(200).json(transactions);
     } catch (error) {
