@@ -5,13 +5,25 @@ const Account = require("../models/account");
 async function index(req, res, next) {
     try {
         let accounts = await Account.find().select("-__v");
-        accounts = await helper.add_extra_props(accounts); //add incomes, expenses, balance
+        var _accounts = []; //modified accounts to return
 
-        //add extra props using model's methods
+        for(let i = 0; i < accounts.length; i++) {
 
+            const account = accounts[i]
+            const expenses = await account.get_total_expenses();
+            const incomes = await account.get_total_incomes();
+            const balance = incomes - expenses;
 
-        console.log(accounts);
-        res.status(200).json(accounts);
+            const _account = account.toObject(); //mongoose objects does not allow change props
+            _account["expenses"] = expenses;
+            _account["incomes"] = incomes;
+            _account["balance"] = balance;
+            _accounts.push(_account);
+
+        }
+
+        //console.log(_accounts)
+        res.status(200).json(_accounts);
     } catch (error) {
         console.log(error);
         res.status(500).json({
