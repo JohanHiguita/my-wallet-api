@@ -2,9 +2,14 @@ const mongoose = require("mongoose");
 const Transaction = require("../models/transaction");
 
 async function index(req, res, next) {
+    console.log(req.body)
     try {
-        const transactions = await Transaction.find().select("-__v");
-        console.log(transactions);
+        const transactions = await Transaction
+        .find()
+        .populate('category', 'name')
+        .populate('account', 'name type')
+        .select("-__v -user");
+        //console.log(transactions);
         res.status(200).json(transactions);
     } catch (error) {
         console.log(error);
