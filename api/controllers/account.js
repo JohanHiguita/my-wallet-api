@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const helper = require ("../helpers/account");
 const Account = require("../models/account");
 
 async function index(req, res, next) {
