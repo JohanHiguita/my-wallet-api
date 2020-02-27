@@ -22,19 +22,19 @@ const transactionSchema = mongoose.Schema(
     },
     user: {
         type: mongoose.Types.ObjectId,
-        ref: "User",
+        ref: "user",
         required: [true, "No user_id provided"]
     },
     category: {
         type: mongoose.Types.ObjectId,
-        ref: "Category",
+        ref: "category",
         required: [true, "No category_id provided"]
     },
     account: {
         type: mongoose.Types.ObjectId,
-        ref: "Account",
+        ref: "account",
         required: [true, "No account_id provided"]
-      }
+    }
   },
 
   { timestamps: {} }
