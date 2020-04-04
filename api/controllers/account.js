@@ -6,9 +6,8 @@ async function index(req, res, next) {
         let accounts = await Account.find().select("-__v");
         var _accounts = []; //modified accounts to return
 
-        for(let i = 0; i < accounts.length; i++) {
-
-            const account = accounts[i]
+        for (let i = 0; i < accounts.length; i++) {
+            const account = accounts[i];
             const expenses = await account.get_total_expenses();
             const incomes = await account.get_total_incomes();
             const balance = incomes - expenses;
@@ -18,7 +17,6 @@ async function index(req, res, next) {
             _account["incomes"] = incomes;
             _account["balance"] = balance;
             _accounts.push(_account);
-
         }
 
         //console.log(_accounts)
@@ -36,7 +34,6 @@ async function show(req, res, next) {
     try {
         let account = await Account.findById(id).select("-__v");
         if (account) {
-
             const expenses = await account.get_total_expenses();
             const incomes = await account.get_total_incomes();
             const balance = incomes - expenses;
@@ -61,24 +58,24 @@ async function show(req, res, next) {
 
 async function create(req, res, next) {
     try {
-      const account = new Account({
-        _id: new mongoose.Types.ObjectId(),
-        name: req.body.name,
-        type: req.body.type
-      });
+        const account = new Account({
+            _id: new mongoose.Types.ObjectId(),
+            name: req.body.name,
+            type: req.body.type
+        });
 
-      const result = await account.save();
-      res.status(201).json({
-        message: "Account created",
-        created_account: result
-      });
+        const result = await account.save();
+        res.status(201).json({
+            message: "Account created",
+            created_account: result
+        });
     } catch (error) {
-      console.log(error);
-      res.status(500).json({
-        error: error
-      });
+        console.log(error);
+        res.status(500).json({
+            error: error
+        });
     }
-  }
+}
 
 module.exports = {
     index,
