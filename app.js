@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 //Prevente CORS errors
-/* app.use((req, res, next) => {
+app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*") //any origin
   res.header(
     "Access-Control-Allow-Headers",
@@ -36,7 +36,9 @@ app.use(bodyParser.json())
     return res.status(200).json({})
   }
 
-}) */
+  next();
+
+})
 
 app.use("/accounts", account_routes)
 app.use("/transactions", transaction_routes)

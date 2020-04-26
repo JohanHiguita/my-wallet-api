@@ -1,13 +1,19 @@
 const mongoose = require("mongoose");
 const Transaction = require("../models/transaction");
+const moment = require('moment');
+
 
 async function index(req, res, next) {
-    console.log(req.body)
+    //console.log(req.body)
     try {
+
+        const this_month = moment().startOf('month').format("YYYY-MM-DD");
+
         const transactions = await Transaction
-        .find()
+        .find({ date: { $gte: this_month} })
         .populate('category', 'name')
         .populate('account', 'name type')
+        .sort({ date: 'desc'})
         .select("-__v -user");
         //console.log(transactions);
         res.status(200).json(transactions);
@@ -38,6 +44,7 @@ async function create(req, res, next) {
 
       const result = await transaction.save();
       res.status(201).json({
+        success: true,
         message: "Transaction created",
         created_transaction: result
       });
