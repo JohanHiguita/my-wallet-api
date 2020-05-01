@@ -17,6 +17,7 @@ const transaction_routes = require("./api/routes/transactions");
 const user_routes = require("./api/routes/users");
 const category_routes = require("./api/routes/categories");
 const config_routes = require("./api/routes/config");
+const budget_routes = require("./api/routes/budget");
 
 app.use(morgan("dev"))
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -45,6 +46,7 @@ app.use("/transactions", transaction_routes)
 app.use("/users", user_routes)
 app.use("/categories", category_routes)
 app.use("/config", config_routes)
+app.use("/budget", budget_routes)
 
 //if no one of the before routes match:
 app.use((req, res, next) => {
