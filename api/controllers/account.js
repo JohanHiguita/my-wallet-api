@@ -8,6 +8,7 @@ async function index(req, res, next) {
 
         for (let i = 0; i < accounts.length; i++) {
             const account = accounts[i];
+            //here use promise all
             const expenses = await account.get_total_expenses();
             const incomes = await account.get_total_incomes();
             const balance = incomes - expenses;
@@ -34,17 +35,23 @@ async function show(req, res, next) {
     try {
         let account = await Account.findById(id).select("-__v");
         if (account) {
+
+            //use promise.all
             const expenses = await account.get_total_expenses();
             const incomes = await account.get_total_incomes();
             const balance = incomes - expenses;
 
-            account = account.toObject(); //mongoose objects does not allow change props
+            const _account = account.toObject(); //mongoose objects does not allow change props
 
-            account["expenses"] = expenses;
-            account["incomes"] = incomes;
-            account["balance"] = balance;
+            if(account.type == "savings") {
+                const pockets = await account.getPockets()
+                _account["pockets"] = pockets;
+            }
+            _account["expenses"] = expenses;
+            _account["incomes"] = incomes;
+            _account["balance"] = balance;
 
-            res.status(200).json(account);
+            res.status(200).json(_account);
         } else {
             res.status(404).json({
                 message: `No valid entry found for id ${id}`

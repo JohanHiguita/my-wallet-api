@@ -65,7 +65,21 @@ accountSchema.methods.get_total_incomes = async function(since = "this-month") {
 
 };
 
-accountSchema.methods.get_balance = function(id, cb) {};
+accountSchema.methods.getPockets = async function() {
+
+    const Pocket = require("./pocket");
+
+    try {
+        /* spend this month, get all transactions for this account  */
+        const pockets = await Pocket.find({account: this._id}).select("name amount description");
+        return pockets;
+    } catch (error) {
+        console.log(error);
+    }
+
+
+
+};
 
 
 module.exports = mongoose.model("account", accountSchema);
