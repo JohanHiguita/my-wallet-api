@@ -16,6 +16,10 @@ const categorySchema = mongoose.Schema(
         type: mongoose.Types.ObjectId,
         ref: "User",
         required: [true, "No user_id provided"]
+    },
+    usual_value: {
+        type: Number,
+        required: false
     }
   },
 

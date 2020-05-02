@@ -37,6 +37,7 @@ async function create(req, res, next) {
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
         is_fixed_expense: req.body.is_fixed_expense,
+        usual_value: req.body.usual_value,
         user: req.body.user_id
       });
 
