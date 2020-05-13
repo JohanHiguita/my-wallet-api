@@ -11,7 +11,7 @@ async function info(req, res, next) {
         const config = Config.find().select("-__v");
         const transactions = Transaction.find({
             type: "expense",
-            date: { $gte: begin_month, $lte: end_month },
+            payment_month: { $gte: begin_month, $lte: end_month },
         }).populate({
             path: "category",
             match: {

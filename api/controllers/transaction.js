@@ -10,10 +10,10 @@ async function index(req, res, next) {
         const this_month = moment().startOf('month').format("YYYY-MM-DD");
 
         const transactions = await Transaction
-        .find({ date: { $gte: this_month} })
+        .find({ payment_month: { $gte: this_month} })
         .populate('category', 'name')
         .populate('account', 'name type')
-        .sort({ date: 'desc'})
+        .sort({ payment_month: 'desc'})
         .select("-__v -user");
         //console.log(transactions);
         res.status(200).json(transactions);
@@ -35,7 +35,7 @@ async function create(req, res, next) {
         _id: new mongoose.Types.ObjectId(),
         amount: req.body.amount,
         note: req.body.note,
-        date: req.body.date,
+        payment_month: req.body.payment_month,
         type: req.body.type,
         user: req.body.user_id,
         category: req.body.category_id,
