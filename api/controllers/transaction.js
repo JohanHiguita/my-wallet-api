@@ -7,13 +7,15 @@ async function index(req, res, next) {
     //console.log(req.body)
     try {
 
-        const this_month = moment().startOf('month').format("YYYY-MM-DD");
+        //const this_month = moment().startOf('month').format("YYYY-MM-DD");
 
         const transactions = await Transaction
-        .find({ payment_month: { $gte: this_month} })
+        //.find({ payment_month: { $gte: this_month} })
+        .find()
         .populate('category', 'name')
         .populate('account', 'name type')
         .sort({ payment_month: 'desc'})
+        .limit(20)
         .select("-__v -user");
         //console.log(transactions);
         res.status(200).json(transactions);
