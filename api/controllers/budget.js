@@ -19,12 +19,16 @@ async function info(req, res, next) {
             },
         });
 
+        //get solved promises
         const promises = await Promise.all([config, transactions]);
 
         const budget = promises[0][0].budget;
+        //sum ammount of expenses
         const spent = promises[1]
             .filter((trans) => trans.category != null)
             .reduce((acc, curr) => acc + curr["amount"], 0);
+        
+        // build sata to return
         const info = {
             budget: budget,
             spent: spent,
