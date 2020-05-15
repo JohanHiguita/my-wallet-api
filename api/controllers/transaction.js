@@ -14,7 +14,7 @@ async function index(req, res, next) {
         .find()
         .populate('category', 'name')
         .populate('account', 'name type')
-        .sort({ payment_month: 'desc'})
+        .sort({ createdAt: 'desc'})
         .limit(20)
         .select("-__v -user");
         //console.log(transactions);
