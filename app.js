@@ -19,6 +19,7 @@ const category_routes = require("./api/routes/categories");
 const config_routes = require("./api/routes/config");
 const budget_routes = require("./api/routes/budget");
 const pocket_routes = require("./api/routes/pocket");
+const transfer_routes = require("./api/routes/transfer");
 
 app.use(morgan("dev"))
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -49,6 +50,7 @@ app.use("/categories", category_routes)
 app.use("/config", config_routes)
 app.use("/budget", budget_routes)
 app.use("/pocket", pocket_routes)
+app.use("/transfer", transfer_routes)
 
 //if no one of the before routes match:
 app.use((req, res, next) => {
