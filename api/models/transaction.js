@@ -1,43 +1,46 @@
 const mongoose = require("mongoose");
 
 const transactionSchema = mongoose.Schema(
-    {
-        _id: mongoose.Types.ObjectId,
-        amount: {
-            type: Number,
-            required: [true, "No amount provided"]
-        },
-        note: {
-            type: String,
-            trim: true
-        },
-        payment_month: {
-          type: Date,
-            default: Date.now
-        },
-        type: {
-            type: String,
-            enum: ['income', 'expense'],
-            required: [true, "No type provided"]
-        },
-        user: {
-            type: mongoose.Types.ObjectId,
-            ref: "user",
-            required: [true, "No user_id provided"]
-        },
-        category: {
-            type: mongoose.Types.ObjectId,
-            ref: "category",
-            required: [true, "No category_id provided"]
-        },
-        account: {
-            type: mongoose.Types.ObjectId,
-            ref: "account",
-            required: [true, "No account_id provided"]
-        }
-    },
+	{
+		_id: mongoose.Types.ObjectId,
+		amount: {
+			type: Number,
+			required: [true, "No amount provided"]
+		},
+		note: {
+			type: String,
+			trim: true
+		},
+		payment_month: {
+			type: Date,
+			default: Date.now
+		},
+		type: {
+			type: String,
+			enum: ['income', 'expense', 'transfer_in', 'transfer_out'],
+			required: [true, "No type provided"]
+		},
+		user: {
+			type: mongoose.Types.ObjectId,
+			ref: "user",
+			required: [true, "No user_id provided"]
+		},
+		category: {
+			type: mongoose.Types.ObjectId,
+			ref: "category",
+		},
+		account: {
+			type: mongoose.Types.ObjectId,
+			ref: "account",
+			required: [true, "No account_id provided"]
+		},
+		transfer: {
+			type: mongoose.Types.ObjectId,
+			ref: "transfer"
+		}
+	},
 
-    { timestamps: {} }
+	{ timestamps: {} }
 );
 
 /* validation */
