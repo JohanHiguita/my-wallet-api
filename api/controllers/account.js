@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Account = require("../models/account");
 
 async function index(req, res, next) {
+    const since = req.body.since;
     try {
         let accounts = await Account.find().select("-__v");
         var _accounts = []; //modified accounts to return
@@ -9,14 +10,16 @@ async function index(req, res, next) {
         for (let i = 0; i < accounts.length; i++) {
             const account = accounts[i];
             //here use promise all
-            const expenses = await account.get_total_expenses();
-            const incomes = await account.get_total_incomes();
+            const expenses = await account.get_total_expenses(since);
+            const incomes = await account.get_total_incomes(since);
+            const total = await account.get_total(since);
             const balance = incomes - expenses;
 
             const _account = account.toObject(); //mongoose objects does not allow change props
             _account["expenses"] = expenses;
             _account["incomes"] = incomes;
             _account["balance"] = balance;
+            _account["total"] = total;
             _accounts.push(_account);
         }
 

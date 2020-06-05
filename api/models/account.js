@@ -30,13 +30,14 @@ accountSchema.methods.get_transactions = function(id, cb) {
 };
 
 
-accountSchema.methods.get_total_expenses = async function(since = "this-month") {
+accountSchema.methods.get_total_expenses = async function(from,to) {
     const Transaction = require("./transaction");
     let expenses = 0;
+    let transactions;
 
     try {
         /* spend this month, get all transactions for this account  */
-        var transactions = await Transaction.find({account: this._id, type: "expense"}).select("type amount");
+        transactions = await Transaction.find({account: this._id, type: "expense"}).select("type amount");
     } catch (error) {
         console.log(error);
     }
@@ -47,7 +48,7 @@ accountSchema.methods.get_total_expenses = async function(since = "this-month") 
 
 };
 
-accountSchema.methods.get_total_incomes = async function(since = "this-month") {
+accountSchema.methods.get_total_incomes = async function(from,to) {
 
     const Transaction = require("./transaction");
     let incomes = 0;
@@ -62,6 +63,35 @@ accountSchema.methods.get_total_incomes = async function(since = "this-month") {
     transactions.forEach(trans => {incomes += trans.amount});
 
     return incomes;
+
+};
+
+accountSchema.methods.get_total = async function(from,to) {
+
+    const Transaction = require("./transaction");
+    let total = 0;
+    let transactions;
+
+    try {
+        /* spend this month, get all transactions for this account  */
+        //var transactions = await Transaction.find({ account: this._id, $or:[{type: "income"}, {type: "transfer_in"}] }).select("type amount");
+        transactions = await Transaction.find({ account: this._id}).select("type amount");
+        //$or: [{ name: "Rambo" }, { breed: "Pugg" }, { age: 2 }] 
+    } catch (error) {
+        console.log(error);
+    }
+
+    transactions.forEach(trans => {
+
+        if(trans.type === "transfer_in" || trans.type === "income"){
+            total += trans.amount;
+        } else if (trans.type === "transfer_out" || trans.type === "expense"){
+            total -= trans.amount;
+        }
+
+        //return total;
+    });
+    return total;
 
 };
 
