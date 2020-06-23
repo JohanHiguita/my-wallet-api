@@ -5,9 +5,15 @@ const morgan = require("morgan")
 const bodyParser = require("body-parser")
 const mongoose = require ("mongoose")
 
-mongoose.connect(process.env.MONGO_URI, () => {
-  console.log("connected to mongoDB.")
-}, { useMongoClient: true})
+mongoose.connect(
+  process.env.MONGO_URI,
+  { 
+    //useMongoClient: true, 
+    useUnifiedTopology: true,
+    connectWithNoPrimary: true,
+    //serverSelectionTimeoutMS: 5000
+  }
+)
 
 const mDB = mongoose.connection;
 mDB.on('error', console.error.bind(console, 'MongoDB connection error:'));
