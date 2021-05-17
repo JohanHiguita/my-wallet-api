@@ -9,7 +9,7 @@ mongoose.connect(
   process.env.MONGO_URI,
   { 
     //useMongoClient: true, 
-    useUnifiedTopology: true,
+    //useUnifiedTopology: true,
     connectWithNoPrimary: true,
     //serverSelectionTimeoutMS: 5000
   }
